@@ -1,24 +1,31 @@
-import React from 'react';
-import { FaTimes } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaTimes, FaShoppingCart, FaCheckCircle } from 'react-icons/fa';
 import CartItem from './CartItem';
 import '../styles/cart.css';
 
-const Cart = ({ cartItems, isCartOpen, setIsCartOpen, updateQuantity, removeItem }) => {
+const Cart = ({ cartItems, isCartOpen, setIsCartOpen, updateQuantity, removeItem, clearCart }) => {
+  const [showCheckoutSuccess, setShowCheckoutSuccess] = useState(false);
+
   const totalAmount = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const totalItemsCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   const handleCheckout = () => {
-    alert(`Order Summary:\nTotal Items: ${totalItemsCount}\nSubtotal: ₹${totalAmount.toLocaleString('en-IN')}\n\nProceeding to checkout (Dummy action)`);
+    setShowCheckoutSuccess(true);
+  };
+
+  const closeCheckoutModal = () => {
+    setShowCheckoutSuccess(false);
+    clearCart();
+    setIsCartOpen(false);
   };
 
   return (
     <>
-      {/* Overlay to dim background */}
       {isCartOpen && <div className="cart-overlay" onClick={() => setIsCartOpen(false)}></div>}
       
       <div className={`cart-sidebar ${isCartOpen ? 'open' : ''}`}>
         <div className="cart-header">
-          <h2>Shopping Cart</h2>
+          <h2>My Cart ({totalItemsCount})</h2>
           <button className="cart-close" onClick={() => setIsCartOpen(false)}>
             <FaTimes />
           </button>
@@ -26,30 +33,37 @@ const Cart = ({ cartItems, isCartOpen, setIsCartOpen, updateQuantity, removeItem
 
         <div className="cart-items-container">
           {cartItems.length === 0 ? (
-            <div className="empty-cart">
-              <p>Your cart is empty. Start shopping now.</p>
+            <div className="empty-state">
+              <FaShoppingCart size={48} />
+              <h3>Your cart is empty</h3>
+              <p>Start shopping now to add items.</p>
+              <button className="btn" style={{marginTop: '1rem'}} onClick={() => setIsCartOpen(false)}>
+                Explore Products
+              </button>
             </div>
           ) : (
-            cartItems.map((item) => (
-              <CartItem 
-                key={item.id} 
-                item={item} 
-                updateQuantity={updateQuantity} 
-                removeItem={removeItem} 
-              />
-            ))
+            <div className="cart-list">
+              {cartItems.map((item) => (
+                <CartItem 
+                  key={item.id} 
+                  item={item} 
+                  updateQuantity={updateQuantity} 
+                  removeItem={removeItem} 
+                />
+              ))}
+            </div>
           )}
         </div>
 
         {cartItems.length > 0 && (
           <div className="cart-footer">
-            <div className="cart-total-section">
-              <div className="cart-summary-line">
-                <span>Total Items:</span>
+            <div className="cart-summary">
+              <div className="summary-row">
+                <span>Total Items</span>
                 <span>{totalItemsCount}</span>
               </div>
-              <div className="cart-summary-line cart-total">
-                <span>Subtotal:</span>
+              <div className="summary-row summary-total">
+                <span>Subtotal</span>
                 <span>₹{totalAmount.toLocaleString('en-IN')}</span>
               </div>
             </div>
@@ -59,6 +73,27 @@ const Cart = ({ cartItems, isCartOpen, setIsCartOpen, updateQuantity, removeItem
           </div>
         )}
       </div>
+
+      {showCheckoutSuccess && (
+        <div className="checkout-modal-overlay">
+          <div className="checkout-modal">
+            <FaCheckCircle className="success-icon" />
+            <h2>Order Placed Successfully!</h2>
+            <p>Thank you for shopping at Retailsera.</p>
+            <div className="order-summary-box">
+              <div className="summary-row">
+                <span>Total Items:</span>
+                <strong>{totalItemsCount}</strong>
+              </div>
+              <div className="summary-row">
+                <span>Total Amount:</span>
+                <strong>₹{totalAmount.toLocaleString('en-IN')}</strong>
+              </div>
+            </div>
+            <button className="btn" onClick={closeCheckoutModal}>Continue Shopping</button>
+          </div>
+        </div>
+      )}
     </>
   );
 };

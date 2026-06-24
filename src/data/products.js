@@ -104,7 +104,7 @@ export const dummyProducts = [
     category: "Home & Kitchen",
     price: 4999,
     rating: 4.6,
-    image: "https://images.unsplash.com/photo-1584990347449-a6efa1a20079?w=500&q=80",
+    image: "https://images.unsplash.com/photo-1584990347193-6bebebfeaeee?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description: "Complete 10-piece non-stick cookware set including pots, pans, and lids. Dishwasher safe and easy to clean."
   },
   {

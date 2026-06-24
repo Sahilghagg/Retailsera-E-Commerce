@@ -6,25 +6,29 @@ const ProductCard = ({ product, onProductClick, onAddToCart }) => {
   return (
     <div className="product-card" onClick={() => onProductClick(product)}>
       <div className="product-image-container">
-        <img src={product.image} alt={product.name} className="product-image" />
+        <span className="card-badge">{product.category}</span>
+        <img src={product.image} alt={product.name} className="product-image" loading="lazy" />
       </div>
       
-      <span className="product-category">{product.category}</span>
-      <h3 className="product-name" title={product.name}>{product.name}</h3>
-      
-      <div className="product-rating">
-        <FaStar />
-        <span className="rating-text">{product.rating}</span>
-      </div>
-      
-      <div className="product-footer">
-        {/* Format price as INR */}
-        <span className="product-price">₹{product.price.toLocaleString('en-IN')}</span>
+      <div className="product-info">
+        <h3 className="product-name" title={product.name}>{product.name}</h3>
+        
+        <div className="product-rating">
+          <div className="stars">
+            <FaStar /> <span className="rating-value">{product.rating}</span>
+          </div>
+          <span className="rating-count">(124 reviews)</span>
+        </div>
+        
+        <div className="product-price-section">
+          <span className="product-price">₹{product.price.toLocaleString('en-IN')}</span>
+          <span className="product-mrp">₹{(product.price * 1.4).toLocaleString('en-IN')}</span>
+        </div>
         
         <button 
           className="btn add-to-cart-btn"
           onClick={(e) => {
-            e.stopPropagation(); // Stop modal opening
+            e.stopPropagation(); 
             onAddToCart(product);
           }}
         >

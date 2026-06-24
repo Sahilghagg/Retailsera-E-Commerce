@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaStar, FaTimes } from 'react-icons/fa';
+import { FaStar, FaTimes, FaShoppingCart } from 'react-icons/fa';
 import '../styles/modal.css';
 
 const ProductModal = ({ product, onClose, onAddToCart }) => {
@@ -7,7 +7,6 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      {/* Stop propagation so clicking inside the modal doesn't close it */}
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="modal-close" onClick={onClose}>
           <FaTimes />
@@ -22,20 +21,29 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
             <span className="modal-category">{product.category}</span>
             <h2 className="modal-title">{product.name}</h2>
             
-            <div className="product-rating modal-rating">
-              <FaStar />
-              <span className="rating-text">{product.rating}</span>
+            <div className="modal-rating-row">
+              <div className="stars">
+                <FaStar /> <span>{product.rating}</span>
+              </div>
+              <span className="rating-count">124 Ratings & 20 Reviews</span>
             </div>
             
-            <p className="modal-description">{product.description}</p>
+            <div className="modal-price-container">
+              <span className="modal-price">₹{product.price.toLocaleString('en-IN')}</span>
+              <span className="modal-mrp">₹{(product.price * 1.4).toLocaleString('en-IN')}</span>
+              <span className="modal-discount">28% off</span>
+            </div>
+
+            <div className="modal-divider"></div>
+            
+            <div className="modal-description-box">
+              <h3>Product Description</h3>
+              <p className="modal-description">{product.description}</p>
+            </div>
             
             <div className="modal-footer">
-              <span className="modal-price">₹{product.price.toLocaleString('en-IN')}</span>
-              <button 
-                className="btn add-to-cart-btn" 
-                onClick={() => onAddToCart(product)}
-              >
-                Add to Cart
+              <button className="btn btn-add-cart-large" onClick={() => onAddToCart(product)}>
+                <FaShoppingCart style={{ marginRight: '8px' }} /> Add to Cart
               </button>
             </div>
           </div>
