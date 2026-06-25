@@ -17,7 +17,7 @@ const ProductCard = ({ product, onProductClick, onAddToCart }) => {
           <div className="stars">
             <FaStar /> <span className="rating-value">{product.rating}</span>
           </div>
-          <span className="rating-count">(124 reviews)</span>
+          <span className="rating-count">(124 Ratings)</span>
         </div>
         
         <div className="product-price-section">

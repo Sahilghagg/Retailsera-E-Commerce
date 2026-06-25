@@ -18,7 +18,7 @@ const Navbar = ({ cartItemCount, setIsCartOpen, searchQuery, setSearchQuery }) =
           <input
             type="text"
             className="search-input"
-            placeholder="Search products, brands and more..."
+            placeholder="Search products, brands, and more..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />

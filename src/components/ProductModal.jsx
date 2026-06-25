@@ -25,7 +25,7 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
               <div className="stars">
                 <FaStar /> <span>{product.rating}</span>
               </div>
-              <span className="rating-count">124 Ratings & 20 Reviews</span>
+              <span className="rating-count">(124 Ratings)</span>
             </div>
             
             <div className="modal-price-container">
