@@ -110,7 +110,7 @@ function App() {
         
         <Hero />
 
-        <div className="toolbar-section">
+        <div id="catalog-section" className="toolbar-section">
           <div className="toolbar-controls">
             <CategoryFilter selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
             <SortDropdown sortOrder={sortOrder} setSortOrder={setSortOrder} />
